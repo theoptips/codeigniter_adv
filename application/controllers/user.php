@@ -10,6 +10,53 @@ class User extends Main
 		$this->load->view('login');
 	}
 
+	public function process_register()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation-> set_rules('register_email','Email', 'valid_email|required');
+		$this->form_validation-> set_rules('register_password','Password', 'required|min_length[8]|matches[register_confirmpassword]');
+		$this->form_validation->set_rules('register_confirmpassword', 'Password Confirmation', 'required|min_length[8]');
+		$this->form_validation-> set_rules('firstname','First Name Field','required');
+
+
+		$this->form_validation-> set_rules('lastname','Last Name Field','required');
+		if ($this->form_validation->run() === false) 
+		{
+			// getting header already set issue, need to fix later
+			echo validation_errors();
+			redirect(base_url('/index.php/user/login'));
+		}
+		else
+		{
+			$this->load->model('User_model');
+				$this->load->helper('date');
+
+			if ($this->User_model->get_users($this->input->post()['register_email'])===false) 
+			{
+				
+				$post_data = $this->input->post(); //array of 5 //TODO encode password
+				$date_now = now(); //not working
+
+				$post_data_formatted= array(
+					"email"=>$post_data["register_email"],
+					"password"=>$post_data["register_password"],
+					"firstname" =>$post_data["firstname"],
+					"lastname"=>$post_data["lastname"],
+					"created_datetime"=>$date_now
+					);
+				var_dump($post_data_formatted);
+				$this->User_model->registration_query($post_data_formatted);
+				
+			}
+			else
+			{
+				echo "email already exist please choose a new one!";
+				redirect(base_url('/index.php/user/login'));
+			}
+		}
+
+	}
+
 	public function process_login()
 	{
 		// var_dump check;
@@ -27,8 +74,8 @@ class User extends Main
 		// format input, label, validation rules email / required
 		$this->form_validation-> set_rules('email','Email', 'valid_email|required');
 		$this->form_validation-> set_rules('password','Password', 'min_length[8]|required');
-		$this->form_validation-> set_rules('firstname','First Name Field','required');
-		$this->form_validation-> set_rules('lastname','Last Name Field','required');
+		// $this->form_validation-> set_rules('firstname','First Name Field','required');
+		// $this->form_validation-> set_rules('lastname','Last Name Field','required');
 
 		if ($this->form_validation->run() === false) 
 		{
@@ -55,11 +102,11 @@ class User extends Main
 	public function profile()
 	{
 		$this->load->model('User_model');
-		echo "hello ".$this->user_session['email'];
+		echo "Hello, you are loggedin as ".$this->user_session['email'];
 		// need to modify user session, its manual now
 		// code blow didn't work, generated an object not rows
-		// $user_data['all'] = $this->User_model->get_users($this->user_session['email'])[0];
-		$user_data['all'] = $this->User_model->get_users($this->user_session['email']);
+		// $user_data['all'] = $this->User_model->get_users($this->user_session['email']);
+		$user_data['all'] = $this->User_model->get_users($this->user_session['email'])[0];
 	// adding a profile view here for assignment
 		// var_dump($user_data); // also need to pass data into view
 		// $this->load->view('profile');

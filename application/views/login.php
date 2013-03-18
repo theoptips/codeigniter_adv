@@ -8,13 +8,24 @@
 		<form id="login" action="../user/process_login" method="post">
 			<label>Email</label>
 			<input type="text" name="email" />
+			<label>Password</label>
+			<input type="password" name="password" />
+			<input type="submit" value="login"/>
+		</form>
+
+		<h3>Registration Form</h3>
+		<form id="register" action="../user/process_register" method="post">
 			<label>First Name</label>
 			<input type="text" name="firstname"/>
 			<label>Last Name</label>
 			<input type="text" name="lastname" />
+			<label>Email Address</label>
+			<input type="text" name="register_email" />
 			<label>Password</label>
-			<input type="password" name="password" />
-			<input type="submit" value="login"/>
+			<input type="password" name="register_password" />
+			<label>Confirm Password</label>
+			<input type="password" name="register_confirmpassword" />
+			<input type="submit" value="Register"/>
 		</form>
 	</body>
 </html>

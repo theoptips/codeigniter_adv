@@ -25,10 +25,10 @@ class User_model extends CI_Model
 
 	}
 
-	public function registration_query()
+	public function registration_query($data)
 	{
 		// need to organize data into arrays, how to pass data between controller and model?
-		$this->db->insert('codeigniter_intm',$data);
+		$this->db->insert('users',$data);
 	}
 
 	// row() only works for query() class
@@ -40,6 +40,8 @@ class User_model extends CI_Model
 	// 	die();
 
 	// }
+
+
 }
 
 //eof
