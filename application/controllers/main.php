@@ -21,10 +21,13 @@ class Main extends CI_Controller
 	{
 		$this->load->model('User_model');
 		$user_email = 'john@yahoo.com';
-		$user_id = 2;
+		// $user_id = 2;
 		// // $user_email is a parameter
-		$user = $this->User_model->get_users($user_email,$user_id);
-		var_dump($user);
+		// $user = $this->User_model->get_users($user_email,$user_id);
+		// var_dump($user);
+		// test db connection works
+		// $all_users = $this->User_model->get_all_users();
+		// var_dump($all_users);		
 
 	}
 }
