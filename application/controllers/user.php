@@ -19,18 +19,19 @@ class User extends Main
 		// $this->load->library('form_validation');
 		$this->form_validation-> set_rules('register_email','Email', 'valid_email|required');
 		$this->form_validation-> set_rules('register_password','Password', 'required|min_length[8]|matches[register_confirmpassword]');
-		$this->form_validation->set_rules('register_confirmpassword', 'Password Confirmation', 'required|min_length[8]');
+		$this->form_validation-> set_rules('register_confirmpassword', 'Password Confirmation', 'required|min_length[8]');
 		$this->form_validation-> set_rules('firstname','First Name Field','required');
 		$this->form_validation-> set_rules('lastname','Last Name Field','required');
 		if ($this->form_validation->run() === false) 
 		{
 			$this->register['error'] =  validation_errors();
 			// error/message output
-			if (!empty($this->register)) 
-			{
-				var_dump($this->register);
-			}
-			redirect(base_url('/index.php/user/login'));
+			// if (!empty($this->register)) 
+			// {
+			// 	var_dump($this->register);
+			// }
+			// $this->load->view('login',$this->register);
+			// redirect(base_url('/index.php/user/login'));
 		}
 		else
 		{
@@ -73,15 +74,16 @@ class User extends Main
 			{
 				$this->register['error'] = "email already exist please choose a new one!";
 				// error/message output
-				if (!empty($this->register)) 
-				{
-					var_dump($this->register);
-				}
-				redirect(base_url('/index.php/user/login'));
+				// if (!empty($this->register)) 
+				// {
+				// 	var_dump($this->register);
+				// }
+				// $this->load->view('login',$this->register);
+				// redirect(base_url('/index.php/user/login'));
 			}
 		}
 		
-		
+		$this->load->view('login',$this->register);
 	} // end of process_resgister
 
 	public function process_login()
@@ -93,21 +95,27 @@ class User extends Main
 		if ($this->form_validation->run() === false) 
 		{
 			$this->login['error']= validation_errors();
+			// $this->load->view('login',$this->login);
 		}
 		else
 		{
 			// $this->load->model('User_model');
-			if (//$this->User_model->get_users($this->input->post()['email']) !==false ||
-				count($this->User_model->get_users($this->input->post()['email'])[0]) !=0)
+			if (count($this->User_model->get_users($this->input->post()['email'])[0]) !=0 )
 			{
 				$decoded_pass = $this->encrypt->decode($this->User_model->get_users($this->input->post()['email'])[0]->password);
-					if ($decoded_pass==$this->input->post()['password']) 
+				// if ($decoded_pass==$this->input->post()['password']) 
+				// {
+				// 	// $this->login['message'] =  "password match"; // why is this needed?		// logic is broken here
+				// }
+				// else 
+				// {
+				// 	$this->login['error'] ="Password does not match";
+				// }
+
+				if ($decoded_pass === $this->input->post()['password']) 
 				{
-					$this->login['message'] =  "password match";
-				
-				}
-				$user_object  = $this->User_model->get_users($this->input->post()['email'])[0];
-				$user = array(
+					$user_object  = $this->User_model->get_users($this->input->post()['email'])[0];
+					$user = array(
 					'id' => $user_object->id,
 					'email'=>$user_object->email,
 					'login_status' =>true,
@@ -116,21 +124,29 @@ class User extends Main
 					'created_datetime'=>$user_object->created_datetime
 					);
 
-				$this->session->set_userdata('user_session', $user);
-				redirect(base_url('index.php/user/profile'));
+					$this->session->set_userdata('user_session', $user);
+					redirect(base_url('index.php/user/profile'));
+				}
+				else
+				{
+					$this->login['error'] = "Password entered is wrong.";	
+					// $this->load->view('login',$this->login);
+				}
 			}
 			else
 			{
 				$this->login['error'] =  "email does not exists";
-
+				// $this->load->view('login',$this->login);
 			}
-			
 		}
+
+			$this->load->view('login',$this->login);
+		
 		// error/message output
-		if (!empty($this->login)) 
-		{
-			var_dump($this->login);
-		}
+		// if (!empty($this->login)) 
+		// {
+		// 	var_dump($this->login);
+		// }
 
 	}
 	public function profile()

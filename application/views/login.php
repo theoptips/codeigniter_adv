@@ -12,6 +12,10 @@
 			{
 				echo $message;
 			}
+			if (isset($error)) 
+			{
+				echo $error;
+			}
 			// echo $message;
 			// var_dump($message);
 				// if (isset($messages)) 
