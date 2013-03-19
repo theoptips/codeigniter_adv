@@ -2,12 +2,13 @@
 
 require_once('main.php');
 
-//refactor
+//refactor NEEDED
 
 class User extends Main  
 {
 	protected $register = array();
 	protected $login = array();
+
 	public function login()
 	{
 		$this->load->view('login');
@@ -15,7 +16,7 @@ class User extends Main
 
 	public function process_register()
 	{
-		$this->load->library('form_validation');
+		// $this->load->library('form_validation');
 		$this->form_validation-> set_rules('register_email','Email', 'valid_email|required');
 		$this->form_validation-> set_rules('register_password','Password', 'required|min_length[8]|matches[register_confirmpassword]');
 		$this->form_validation->set_rules('register_confirmpassword', 'Password Confirmation', 'required|min_length[8]');
@@ -24,11 +25,16 @@ class User extends Main
 		if ($this->form_validation->run() === false) 
 		{
 			$this->register['error'] =  validation_errors();
+			// error/message output
+			if (!empty($this->register)) 
+			{
+				var_dump($this->register);
+			}
 			redirect(base_url('/index.php/user/login'));
 		}
 		else
 		{
-			$this->load->model('User_model');
+			// $this->load->model('User_model');
 			$this->load->helper('date');
 
 			if ($this->User_model->get_users($this->input->post()['register_email'])===false ||
@@ -49,7 +55,7 @@ class User extends Main
 				$this->User_model->registration_query($post_data_formatted);
 
 				// triggers login
-				$this->load->model('User_model');
+				// $this->load->model('User_model');
 				$user_object  = $this->User_model->get_users($post_data_formatted["email"])[0];
 
 				$user = array(
@@ -66,16 +72,21 @@ class User extends Main
 			else
 			{
 				$this->register['error'] = "email already exist please choose a new one!";
+				// error/message output
+				if (!empty($this->register)) 
+				{
+					var_dump($this->register);
+				}
 				redirect(base_url('/index.php/user/login'));
 			}
 		}
 		
-
+		
 	} // end of process_resgister
 
 	public function process_login()
 	{
-		$this->load->library('form_validation');
+		// $this->load->library('form_validation');
 		$this->form_validation-> set_rules('email','Email', 'valid_email|required');
 		$this->form_validation-> set_rules('password','Password', 'min_length[8]|required');
 
@@ -85,7 +96,7 @@ class User extends Main
 		}
 		else
 		{
-			$this->load->model('User_model');
+			// $this->load->model('User_model');
 			if (//$this->User_model->get_users($this->input->post()['email']) !==false ||
 				count($this->User_model->get_users($this->input->post()['email'])[0]) !=0)
 			{
@@ -115,11 +126,16 @@ class User extends Main
 			}
 			
 		}
+		// error/message output
+		if (!empty($this->login)) 
+		{
+			var_dump($this->login);
+		}
 
 	}
 	public function profile()
 	{
-		$this->load->model('User_model');
+		// $this->load->model('User_model');
 		echo "Hello, you are loggedin as ".$this->user_session['email'];
 		$user_data['all'] = $this->User_model->get_users($this->user_session['email'])[0];
 		$user_data['session_rest'] = $this->user_session_rest; // test session
@@ -129,6 +145,17 @@ class User extends Main
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		redirect(base_url('/index.php/user/login'));
+		$this->login['message'] =  "You are now logged out.";
+		// error/message output
+		// if (!empty($this->login)) 
+		// {
+		// 	var_dump($this->login);
+		// }
+		// doesn't work because session is destroyed
+		// $this->user_session['messages'] = $this->login['message'];
+		$this->load->view('login', $this->login);
+		// var_dump($login);
+		// redirect(base_url('/index.php/user/login'));
+
 	}
 }

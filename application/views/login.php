@@ -5,6 +5,23 @@
 		<title>CodeIgniter Intermediate</title>
 	</head>
 	<body>
+		<div id="messages">
+			<?php 
+				// atttempt at ajax
+			if (isset($message)) 
+			{
+				echo $message;
+			}
+			// echo $message;
+			// var_dump($message);
+				// if (isset($messages)) 
+				// {
+				// 	foreach ($messages as $msg_category => $message) {
+				// 		echo $message;
+				// 	}
+				// }
+			?>
+		</div>
 		<form id="login" action="../user/process_login" method="post">
 			<label>Email</label>
 			<input type="text" name="email" />
