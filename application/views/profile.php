@@ -3,6 +3,8 @@
 // echo "var_dump( ) at the end";
 // var_dump($all);
 // echo gettype($all); //previously array, now object
+// check sesion
+// var_dump($this->user_session_rest);
 ?>
 <!DOCTYPE HTML>
 <html>

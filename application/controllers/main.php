@@ -10,6 +10,9 @@ class Main extends CI_Controller
 		// // using constructor to hold session data so that everything that is a child can access
 		parent::__construct();
 		$this->user_session = $this->session->userdata('user_session');
+		// // experimenting with the rest of the session - below is CI default session data
+		$this->user_session_rest = $this->session->userdata('session_id');
+		$this->load->library('encrypt');
 	}	
 
 	public function index()
