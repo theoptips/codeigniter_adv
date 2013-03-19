@@ -20,4 +20,9 @@ class Main extends CI_Controller
 
 	}
 
+	public function show_users()
+	{
+		// $this->load->model('User_model');
+		// $user_email = 'john@yahoo.com';
+	}
 }
