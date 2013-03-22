@@ -1,0 +1,21 @@
+.specialspecial
+{
+	border-radius: 5px;
+}
+
+div, button {
+	border-radius: 5px;
+}
+
+.boxborder{
+	border: 5px solid black;
+	min-height: 100px;
+}
+
+#nav_signin, #nav_signout{
+	float:right;
+}
+button a {
+	text-decoration: none;
+	color: white;
+}

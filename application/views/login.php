@@ -1,3 +1,6 @@
+<?php 
+	// old doc
+;?>
 <!DOCTYPE HTML>
 <html>
 	<head>

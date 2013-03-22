@@ -1,5 +1,45 @@
 <?php
 
+
+// $ch = curl_init() ; 
+// $pageurl = "http://www.cnn.com";
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+// curl_setopt ($ch, CURLOPT_URL, $pageurl ); 
+// $html = curl_exec ( $ch ); 
+// curl_close($ch); 
+
+// echo "<h1>CNN.com</h1>";
+// echo strip_tags($html); //reduce array size
+
+
+// $keywords_check = array("the", "a");
+
+// foreach($keywords_check as $keyword)
+// {
+// 	//reduce array size
+// }
+// store one blob in the database, store json, (maybe even mongDB later), update it each and restore it.
+
+
+
+// $xml = new DOMDocument();
+
+// $xml->loadHTMLFile("http://www.google.com");
+
+// // Empty array to hold all links to return 
+// $links = array(); 
+
+// //Loop through each <a> tag in the dom and add it to the link array 
+// foreach($xml->getElementsByTagName('a') as $link) { 
+//     $links[] = array('url' => $link->getAttribute('href'), 'text' => $link->nodeValue); 
+// } 
+
+// var_dump($links);
+
+// die();
+
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

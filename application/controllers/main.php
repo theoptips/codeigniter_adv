@@ -9,7 +9,6 @@ class Main extends CI_Controller
 	{
 		parent::__construct();
 		$this->user_session = $this->session->userdata('user_session');
-		$this->user_session_rest = $this->session->userdata('session_id');
 		$this->load->library('form_validation');
 		$this->load->library('encrypt');
 		$this->load->model('User_model');
@@ -17,7 +16,6 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-
+		$this->load->view('homepage');
 	}
-
 }

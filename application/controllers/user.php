@@ -34,9 +34,9 @@ class User extends Main
 				count($this->User_model->get_users($this->input->post()['register_email'])) == 0) 
 			{
 				
-
+				$this->load->helper('date');
 				$post_data = $this->input->post();
-				$date_now = now();
+				$date_now = date('Y-m-d H:i:s',now());
 
 				$post_data_formatted= array(
 					"email"=>$post_data["register_email"],
@@ -63,7 +63,7 @@ class User extends Main
 			else
 			{
 				$this->register['error'] = "email already exist please choose a new one!";
-			}
+			} // end of register if switch
 		}
 		
 		$this->load->view('login',$this->register);
@@ -106,7 +106,7 @@ class User extends Main
 			}
 			else
 			{
-				$this->login['error'] =  "email does not exists";
+				$this->login['error'] =  "Email does not exists";
 			}
 		}
 

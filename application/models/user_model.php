@@ -8,6 +8,13 @@ class User_model extends CI_Model
 					->result();
 	}
 
+	public function get_users_by_id($user_id)
+	{
+		return $this->db->where('user_id',$user_id)
+						->get('users')
+						->result();
+	}
+
 	public function get_all_users()
 	{
 		return $this->db->get('users')
