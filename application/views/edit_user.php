@@ -38,15 +38,19 @@
 			</div>
 			<div class="span5 boxborder">
 				<h4>Edit Password</h4>
-				<form id="editpassword" action="../users/edit_password" method="post" class="form-horizontal">
+				<form id="editpassword" action="../edit_user<?php echo "/".$edit_value[0]->user_id;?>" method="post" class="form-horizontal">
 					<label>Password</label>
-					<input type="password" name="edit_email" />
+					<input type="password" name="edit_password" />
 					<label>Confirm Password</label>
-					<input type="password" name="firstname"/>
+					<input type="password" name="edit_passwordconfirm"/>
 
 					<input type="submit" value="Update Password" class="btn-success"/>
 				</form>
 			</div>
+		</div>
+		<div class="row">
+			<h4></h4>
+			<div class="span12 boxborder">Hi</div>
 		</div>
 	</div>
 	</body>

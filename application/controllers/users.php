@@ -30,7 +30,7 @@ class Users extends Handler
 	{
 		// echo "This is id".$id;
 		// $user_id = $this->uri->segment(3);
-
+		
 		// TODO MAKE input text name attribute of array
 		// example <input type="text" name="user['name']"> rather than just 'name' and then pass it to the model to process, like ruby on rails
 		// TODO UNSOLVED MYSTERY : now update date will constantly updated, need to resolve
@@ -39,21 +39,47 @@ class Users extends Handler
 		$this->user_info["edit_value"] = $this->User_model->get_users_by_id($user_id);
 		
 		//DRAW ALL FORM DATA
-		$post_email = $this->input->post()["edit_email"];
-		$post_firstname = $this->input->post()["firstname"];
-		$post_lastname = $this->input->post()["lastname"];
-		$post_user_level = $this->input->post()["select"];
+		// var_dump($this->user_info);
 
-		// dump to model
-		$sql_email = 'UPDATE users SET email = ? WHERE user_id= ? ';
-		// $this->db->query($sql_email, array('binding15@gmail.com',$user_id));
-		$this->db->query($sql_email, array($post_email,$user_id));
-		$sql_email = 'UPDATE users SET firstname = ? WHERE user_id= ? ';
-		$this->db->query($sql_email, array($post_firstname,$user_id));
-		$sql_email = 'UPDATE users SET lastname = ? WHERE user_id= ? ';
-		$this->db->query($sql_email, array($post_lastname,$user_id));
-		$sql_email = 'UPDATE users SET user_level = ? WHERE user_id= ? ';
-		$this->db->query($sql_email, array($post_user_level,$user_id));
+		if($this->input->post() and !empty($this->input->post()["edit_email"]))
+		{
+			$post_email = $this->input->post()["edit_email"];
+			$post_firstname = $this->input->post()["firstname"];
+			$post_lastname = $this->input->post()["lastname"];
+			$post_user_level = $this->input->post()["select"];
+
+			// dump to model
+			// combine all sql into set
+			$sql = 'UPDATE users SET email = ?, firstname = ?,lastname = ?,user_level = ?   WHERE user_id= ? ';
+			// $this->db->query($sql_email, array('binding15@gmail.com',$user_id));
+			$this->db->query($sql, array($post_email,$post_firstname,$post_lastname, $post_user_level,$user_id));
+			$this->user_info["message"]= "Modification of user info was successful";
+			// $sql_email = 'UPDATE users SET WHERE user_id= ? ';
+			// $this->db->query($sql_email, array(,$user_id));
+			// $sql_email = 'UPDATE users SET  WHERE user_id= ? ';
+			// $this->db->query($sql_email, array(,$user_id));
+			// $sql_email = 'UPDATE users SET  WHERE user_id= ? ';
+			// $this->db->query($sql_email, array(,$user_id));		
+		}
+		elseif ($this->input->post() and !empty($this->input->post()["edit_password"])) 
+		{
+			$this->form_validation-> set_rules('edit_password','Password', 'required|min_length[8]|matches[edit_passwordconfirm]');
+			$this->form_validation-> set_rules('edit_passwordconfirm', 'Password Confirmation', 'required|min_length[8]');
+			
+			if ($this->form_validation->run() === false) 
+			{
+				$this->user_info['error']= validation_errors();
+			}
+			else
+			{
+				$sql = 'UPDATE users SET password = ?   WHERE user_id= ? ';
+				$this->db->query($sql, array($this->input->post()["edit_password"],$user_id));
+				$this->user_info["message"]= "Modification of password was successful";
+			}
+			
+
+			
+		}
 
 		$this->user_info["edit_value"] = $this->User_model->get_users_by_id($user_id);
 		$this->load->view('edit_user', $this->user_info);
@@ -72,37 +98,4 @@ class Users extends Handler
 		
 
 		
-		
-	}
-
-	public function edit_user_submit()
-	{
-		
-		// move to model soon
-		
-
-		// var_dump($this->input->post());
-		// $user_id = $this->input->post()["user_id"];
-		// var_dump($user_id);
-		// if (true) 
-		// {
-		// 	$this->user_info["message"] = "You have successfully edited information for ".$user_id;
-		// }
-		// else
-		// {
-		// 	$this->user_info["error"] = "Oops something went wrong";
-		// }
-
-		// $user_id =  $this->uri->segment(3);
-		// 
-
-		// $this->user_info["edit_value"]= $this->User_model->get_users_by_id($user_id);
-		// $this->load->view('edit_user' , $this->user_info); // when loading back cannot get back to the same page
-		
-	}
-
-	public function edit_password()
-	{
-		$this->load->view('edit_user');
-	}
 }
