@@ -19,6 +19,7 @@ class Users extends Handler
 		// var_dump($this->User_model->user_user_id());
 
 		//get user_id seems to be in conflict with data user_id
+		// check name logic
 		// $user_user_id_lookup = $this->User_model->user_user_id();
 		// foreach ($user_user_id_lookup as $row) 
 		// {
@@ -143,13 +144,30 @@ class Users extends Handler
 
 		$this->load->helper('date');
 		$this->load->model('Message_model');
-		echo "Hello there!";
+		// echo "Hello there!";
 
 		//message_insert_query($data)
 		$post_data_set = $this->input->post();
 		$post_data_set["wall_update"]["created_at"] = date('Y-m-d H:i:s',now());
 		// var_dump($post_data_set); // content, user_id, recipient_id, but need created at,
 		$this->Message_model->message_insert_query($post_data_set["wall_update"]);
+
+
+
+	}
+
+	public function user_comment($user_id="")
+	{
+
+		$this->load->helper('date');
+		$this->load->model('Message_model');
+
+		$post_data_set = $this->input->post();
+		$post_data_set["user_comment"]["created_at"] = date('Y-m-d H:i:s',now());
+		// var_dump($post_data_set); // content, user_id, recipient_id, but need created at,
+		// var_dump($post_data_set["user_comment"]);
+		$this->Message_model->message_insert_query($post_data_set["user_comment"]);
+		$this->show($user_id);
 
 
 

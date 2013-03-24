@@ -64,12 +64,19 @@
 								<!-- <form action="#" method="post" style="clear:both"> -->
 								<?php
 							} ?>
-
+<!-- 
 					<form action="#" method="post">
 		   			<textarea placeholder="post something here" maxlength="140" name="content" class="span5"></textarea>
 					<input type="hidden" name="comment_user_id" value="<?php echo $this->session->userdata['user_session']['user_id'];?>"/>
 					<input type="hidden" name="comment_recipient_id" value="<?php echo $wall_user_id;?>"/>
 					<input type="hidden" name="parent_message_id" value="<?php echo $running_parent_id;?>"/>
+					<input type="submit" value="Post" class="btn-primary" style="clear:both"/>
+					</form> -->
+					<form action="../user_comment<?php echo "/".$wall_user_id;?>" method="post">
+		   			<textarea placeholder="post something here" maxlength="140" name="user_comment[content]" class="span5"></textarea>
+					<input type="hidden" name="user_comment[user_id]" value="<?php echo $this->session->userdata['user_session']['user_id'];?>"/>
+					<input type="hidden" name="user_comment[recipient_id]" value="<?php echo $wall_user_id;?>"/>
+					<input type="hidden" name="user_comment[parent_message_id]" value="<?php echo $running_parent_id;?>"/>
 					<input type="submit" value="Post" class="btn-primary" style="clear:both"/>
 					</form>
 					<?php
