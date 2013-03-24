@@ -49,8 +49,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<h4></h4>
-			<div class="span12 boxborder">Hi</div>
+			<div class="span12 boxborder">
+				<h4>Edit Description</h4>
+				<form id="description" action="#" method="post">
+					<textarea rows="5" cols="200" maxlength="140" name="description"></textarea>
+					<input type="submit" value="Save" class="btn-success">
+				</form>
+			</div>
 		</div>
 	</div>
 	</body>

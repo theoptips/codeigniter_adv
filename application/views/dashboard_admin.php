@@ -6,6 +6,7 @@
 	<body>
 	<?php require('application/views/partials/navbar_dashboard.php');?>
 	<div class="container">
+		<?php require('application/views/partials/show_error.php');?>
 		<div class="row span12">
 			<div class="span3"><h4>Manage Users	</h4></div>
 			<button class="btn-primary span3 offset3">Add new</button>

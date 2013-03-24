@@ -28,6 +28,7 @@ class Users extends Handler
 	
 	public function edit_user($user_id="")
 	{
+		$this->output->enable_profiler(TRUE);
 		// echo "This is id".$id;
 		// $user_id = $this->uri->segment(3);
 		
@@ -40,6 +41,7 @@ class Users extends Handler
 		
 		//DRAW ALL FORM DATA
 		// var_dump($this->user_info);
+		$this->load->helper('date');
 
 		if($this->input->post() and !empty($this->input->post()["edit_email"]))
 		{
@@ -47,12 +49,14 @@ class Users extends Handler
 			$post_firstname = $this->input->post()["firstname"];
 			$post_lastname = $this->input->post()["lastname"];
 			$post_user_level = $this->input->post()["select"];
+			$updated_at = date('Y-m-d H:i:s',now());
+
 
 			// dump to model
 			// combine all sql into set
-			$sql = 'UPDATE users SET email = ?, firstname = ?,lastname = ?,user_level = ?   WHERE user_id= ? ';
+			$sql = 'UPDATE users SET email = ?, firstname = ?,lastname = ?,user_level = ?, updated_at =?   WHERE user_id= ? ';
 			// $this->db->query($sql_email, array('binding15@gmail.com',$user_id));
-			$this->db->query($sql, array($post_email,$post_firstname,$post_lastname, $post_user_level,$user_id));
+			$this->db->query($sql, array($post_email,$post_firstname,$post_lastname, $post_user_level,$updated_at,$user_id));
 			$this->user_info["message"]= "Modification of user info was successful";
 			// $sql_email = 'UPDATE users SET WHERE user_id= ? ';
 			// $this->db->query($sql_email, array(,$user_id));
@@ -72,13 +76,18 @@ class Users extends Handler
 			}
 			else
 			{
-				$sql = 'UPDATE users SET password = ?   WHERE user_id= ? ';
-				$this->db->query($sql, array($this->input->post()["edit_password"],$user_id));
+				$updated_at = date('Y-m-d H:i:s',now());
+				$sql = 'UPDATE users SET password = ?, updated_at = ?   WHERE user_id= ? ';
+				$this->db->query($sql, array($this->input->post()["edit_password"],$updated_at, $user_id));
 				$this->user_info["message"]= "Modification of password was successful";
-			}
-			
-
-			
+			}	
+		}
+		elseif ($this->input->post() and !empty($this->input->post()["description"])) 
+		{
+			$updated_at = date('Y-m-d H:i:s',now());
+			$sql = 'UPDATE users SET description = ?, updated_at = ?   WHERE user_id= ? ';
+			$this->db->query($sql, array($this->input->post()["description"],$updated_at, $user_id));
+			$this->user_info["message"]= "Modification of description was successful";
 		}
 
 		$this->user_info["edit_value"] = $this->User_model->get_users_by_id($user_id);
@@ -95,7 +104,6 @@ class Users extends Handler
 		
 		// update time
 		// value holder
-		
+	}
 
-		
 }
