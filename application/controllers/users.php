@@ -13,9 +13,11 @@ class Users extends Handler
 
 	public function show($user_id="") // should take a user_id parameter
 	{
+		$this->output->enable_profiler(TRUE);
 		$this->load->model('Message_model');
 		$this->user_info["wall_user_id"] = $user_id;
-		// var_dump($this->Message_model->get_messages($user_id));
+		// draw data and store
+		$message_data_set = $this->Message_model->get_messages($user_id);
 		$this->load->view('wall',$this->user_info);
 	}
 
@@ -31,7 +33,7 @@ class Users extends Handler
 	
 	public function edit_user($user_id="")
 	{
-		$this->output->enable_profiler(TRUE);
+		
 		// echo "This is id".$id;
 		// $user_id = $this->uri->segment(3);
 		
@@ -113,5 +115,12 @@ class Users extends Handler
 	// {
 	// 	$this->load->view('profile');
 	// }
+
+	public function user_update($user_id="")
+	{
+		echo "Hello there!";
+		var_dump($this->input->post()) ;
+		
+	}
 
 }
