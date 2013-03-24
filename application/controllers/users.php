@@ -173,4 +173,25 @@ class Users extends Handler
 
 	}
 
+	public function lookup_users()
+	{
+		// delete imap_last_error(oid)
+		$user_user_id_lookup = $this->User_model->user_user_id();
+		$this->user_info["lookup"] = new stdClass(); // without this error message appears:
+		// Message: Creating default object from empty value 
+		foreach ($user_user_id_lookup as $row) 
+		{
+			$running_user_id = $row->user_id;
+			// echo $running_user_id;
+			// die();
+
+			$this->user_info["lookup"]->$running_user_id = $row;
+			// die();
+			// $row->fullname = $row->firstname." ".$row->lastname
+			$this->user_info["lookup"]->$running_user_id->fullname = $row->firstname." ".$row->lastname;
+		}
+		// var_dump($user_user_id_lookup);
+		var_dump($this->user_info["lookup"]);
+	}
+
 }

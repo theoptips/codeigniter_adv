@@ -56,6 +56,7 @@
 								if($children_row->parent_message_id== $running_parent_id)
 								{
 									// echo '<div class="span6 mini_post red offset3" style="border:1px solid black;" >';
+									echo "This is a user_id ID ".$children_row->user_id."  --[PLACEHOLDER]--";
 									echo $children_row->content;
 									echo $children_row->message_id;	
 									// echo '</div>';
