@@ -14,10 +14,32 @@ class Users extends Handler
 	public function show($user_id="") // should take a user_id parameter
 	{
 		$this->output->enable_profiler(TRUE);
+
 		$this->load->model('Message_model');
+		// var_dump($this->User_model->user_user_id());
+
+		//get user_id seems to be in conflict with data user_id
+		// $user_user_id_lookup = $this->User_model->user_user_id();
+		// foreach ($user_user_id_lookup as $row) 
+		// {
+		// 	$running_user_id = $row->user_id;
+		// 	// echo $running_user_id;
+		// 	// die();
+
+		// 	$this->user_info["lookup"]->$running_user_id = $row;
+		// 	// die();
+		// 	// $row->fullname = $row->firstname." ".$row->lastname
+		// 	$this->user_info["lookup"]->$running_user_id->fullname = $row->firstname." ".$row->lastname;
+		// }
+		// var_dump($user_user_id_lookup);
+		// var_dump($this->user_info["lookup"]);
 		$this->user_info["wall_user_id"] = $user_id;
+		// $this->user_info["lookup"] = $user_user_id_lookup;
 		// draw data and store
 		$message_data_set = $this->Message_model->get_messages($user_id);
+		// var_dump($message_data_set);
+		$this->user_info["message_data_set"] = $message_data_set;
+
 		$this->load->view('wall',$this->user_info);
 	}
 
@@ -118,9 +140,19 @@ class Users extends Handler
 
 	public function user_update($user_id="")
 	{
+
+		$this->load->helper('date');
+		$this->load->model('Message_model');
 		echo "Hello there!";
-		var_dump($this->input->post()) ;
-		
+
+		//message_insert_query($data)
+		$post_data_set = $this->input->post();
+		$post_data_set["wall_update"]["created_at"] = date('Y-m-d H:i:s',now());
+		// var_dump($post_data_set); // content, user_id, recipient_id, but need created at,
+		$this->Message_model->message_insert_query($post_data_set["wall_update"]);
+
+
+
 	}
 
 }
