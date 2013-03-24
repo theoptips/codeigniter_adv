@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="row span12">
 			<div class="span3"><h4>Add a New User</h4></div>
-			<button class="btn-primary span3 offset3">Return to Dashboard</button>
+			<button class="btn-primary span3 offset3"><a href="../dashboard/admin">Return to Dashboard</a></button>
 		</div>
 		<form id="adduser" action="../handler/process_register" method="post" class="form-horizontal">
 			<label>First Name</label>

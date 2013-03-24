@@ -15,7 +15,7 @@
 			<input type="password" name="password" />
 			<input type="submit" value="login" class="btn-success"/>
 		</form>
-		<a href="/index.php/handler/signout">Don't Have an Account? Register Here</a>
+		<a href="/index.php/handler/register">Don't Have an Account? Register Here</a>
 	</div>
 	</body>
 </html>

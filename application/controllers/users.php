@@ -11,9 +11,12 @@ class Users extends Handler
 		$this->load->view('newuser');
 	}
 
-	public function show() // should take a user_id parameter
+	public function show($user_id="") // should take a user_id parameter
 	{
-		$this->load->view('wall');
+		$this->load->model('Message_model');
+		$this->user_info["wall_user_id"] = $user_id;
+		// var_dump($this->Message_model->get_messages($user_id));
+		$this->load->view('wall',$this->user_info);
 	}
 
 	public function edit()
@@ -105,5 +108,10 @@ class Users extends Handler
 		// update time
 		// value holder
 	}
+
+	// public function show_2($user_id="")
+	// {
+	// 	$this->load->view('profile');
+	// }
 
 }

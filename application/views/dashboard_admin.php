@@ -6,11 +6,11 @@
 	<body>
 	<?php require('application/views/partials/navbar_dashboard.php');?>
 	<div class="container">
-		<?php require('application/views/partials/show_error.php');?>
 		<div class="row span12">
 			<div class="span3"><h4>Manage Users	</h4></div>
-			<button class="btn-primary span3 offset3">Add new</button>
+			<button class="btn-primary span3 offset3"><a href="../users/newuser">Add new</a></button>
 		</div>
+		<?php require('application/views/partials/show_error.php');?>
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
