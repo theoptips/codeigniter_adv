@@ -10,22 +10,19 @@ class Message_model extends CI_Model
 					->result();
 	}
 
-	// public function get_users_by_id($user_id)
-	// {
-	// 	return $this->db->where('user_id',$user_id)
-	// 					->get('users')
-	// 					->result();
-	// }
-
-	// public function get_all_messages()
-	// {
-	// 	return $this->db->get('users')
-	// 					->result();
-	// }
-
 	public function message_insert_query($data)
 	{
 		$this->db->insert('messages',$data);
 	}
+
+	public function remove($message_id)
+	{
+		//needs to be tested.
+			$sql = 'DELETE FROM messages WHERE message_id= ? ';
+			$this->db->query($sql, array($message_id));
+			$sql = 'DELETE FROM messages WHERE parent_message_id= ? ';
+			$this->db->query($sql, array($message_id));
+	}
+
 }
 //eof

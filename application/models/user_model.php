@@ -33,5 +33,13 @@ class User_model extends CI_Model
 						->result();
 	}
 
+	public function remove($user_id="")
+	{
+		//needs to be tested.
+			$sql = 'DELETE FROM users WHERE user_id= ? ';
+			$this->db->query($sql, array($user_id));
+			$this->user_info["message"]= "Removal of user was successful.";
+	}
+
 }
 //eof
