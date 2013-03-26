@@ -1,4 +1,5 @@
 <?php
+
 // var_dump($this->session->userdata->login_status);
 // var_dump($this->session->userdata["user_session"]["login_status"]);
   if (isset($this->session->userdata["user_session"])) {
@@ -10,8 +11,8 @@
     <h1>Welcome</h1>
     <a class="brand" href="/index.php/main">User App</a>
     <ul class="nav">
-      <li class="active"><a href="#">Dashboard</a></li>
-      <li><a href="#">Profile</a></li>
+      <li class="active"><a href="/index.php/dashboard/admin">Dashboard</a></li>
+      <li><a href="/index.php/users/show/<?php echo $this->session->userdata['user_session']['user_id']; ?>">Profile</a></li>
     </ul>
     <ul class="nav" style="float:right">
       <li>

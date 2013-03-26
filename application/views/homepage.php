@@ -7,8 +7,7 @@
 	<div class="container">
 		<div class="hero-unit">
 			<p>We're going to build a cool application using a MVC framework! @codingdojo</p>
-			<button class="btn-primary specialspecial"><a href="http://www.google.com">Start</a></button>
-			<button class="btn-primary specialspecial">Start</button>
+			<button class="btn-primary specialspecial"><a href="../index.php/handler/signin">Start</a></button>
 		</div>
 		<div class="row">
 			<div class="span4">

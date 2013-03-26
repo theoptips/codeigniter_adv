@@ -42,7 +42,7 @@ class Handler extends Main
 					);
 
 					$this->session->set_userdata('user_session', $user);
-					redirect(base_url('index.php/users/show'));
+					redirect(base_url('index.php/users/show/'.$user['user_id']));
 				}
 				else
 				{
@@ -109,8 +109,7 @@ class Handler extends Main
 					);
 
 				$this->session->set_userdata('user_session', $user);
-				// var_dump($this->session->userdata("login_status"));
-				redirect(base_url('index.php/users/show'));
+				redirect(base_url('index.php/users/show/'.$user['user_id']));
 			}
 			else
 			{

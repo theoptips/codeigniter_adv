@@ -18,10 +18,18 @@ class Message_model extends CI_Model
 	public function remove($message_id)
 	{
 		//needs to be tested.
-			$sql = 'DELETE FROM messages WHERE message_id= ? ';
-			$this->db->query($sql, array($message_id));
-			$sql = 'DELETE FROM messages WHERE parent_message_id= ? ';
-			$this->db->query($sql, array($message_id));
+		$sql = 'DELETE FROM messages WHERE message_id= ? ';
+		$this->db->query($sql, array($message_id));
+		$sql = 'DELETE FROM messages WHERE parent_message_id= ? ';
+		$this->db->query($sql, array($message_id));
+	}
+
+	public function remove_message_by_user_id($user_id)
+	{
+		$sql = 'DELETE FROM messages WHERE user_id= ? ';
+		$this->db->query($sql, array($user_id));
+		$sql = 'DELETE FROM messages WHERE recipient_id= ? ';
+		$this->db->query($sql, array($user_id));
 	}
 
 }

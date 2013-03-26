@@ -13,11 +13,13 @@ class Users extends Handler
 
 	public function show($user_id="")
 	{
-		$this->output->enable_profiler(TRUE);
+		// $this->output->enable_profiler(TRUE);
 		$this->load->model('Message_model');
 		$this->user_info["wall_user_id"] = $user_id;
 		$message_data_set = $this->Message_model->get_messages($user_id);
 		$this->user_info["message_data_set"] = $message_data_set;
+		$this->session->set_userdata('last_page', current_url());
+		// var_dump($this->session->userdata);
 		$this->load->view('wall',$this->user_info);
 	}
 
@@ -80,6 +82,7 @@ class Users extends Handler
 		$post_data_set = $this->input->post();
 		$post_data_set["wall_update"]["created_at"] = date('Y-m-d H:i:s',now());
 		$this->Message_model->message_insert_query($post_data_set["wall_update"]);
+		redirect(base_url('index.php/users/show/'.$user_id));
 
 
 
@@ -117,29 +120,31 @@ class Users extends Handler
 		return $this->user_info["lookup"];
 	}
 
-	public function remove_user()
+	public function remove_user($user_id="")
 	{
-		
+		$this->load->model('Message_model');
+		$this->Message_model->remove_message_by_user_id($user_id);
+		$this->User_model->remove($user_id);
 	}
 
 
-	// 	public function remove($message_id="")
-	// {
-	// 	//needs to be tested.
-	// 		$sql = 'DELETE FROM messages WHERE message_id= ? ';
-	// 		$this->db->query($sql, array($message_id));
-	// 		$sql = 'DELETE FROM messages WHERE parent_message_id= ? ';
-	// 		$this->db->query($sql, array($message_id));
-	// 		$this->user_info["message"]= "Removal of message and its sub messages was successful.";
-	// }
+
 
 	public function remove_message($message_id="")
 	{
 		$this->load->model('Message_model');
+		$this->load->helper('url');
+		
+		// var_dump($this->session->userdata);
+		// die();
 		// echo "You are about to remove message id".$message_id;
 		$this->Message_model->remove($message_id);
+		// echo $this->session->userdata["last_page"];
+		redirect($this->session->userdata["last_page"]);
 		
 	}
+
+
 
 
 }
